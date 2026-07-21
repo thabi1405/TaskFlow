@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <h2 class="logo">TaskFlow</h2>
+
+        <nav class="sidebar-menu">
+
+            <a href="/dashboard">🏠 Dashboard</a>
+
+            <a href="/add-task">➕ Add Task</a>
+
+            <a href="/pending">📋 Pending Tasks</a>
+
+            <a href="/completed">✅ Completed Tasks</a>
+
+            <a href="/logout">🚪 Logout</a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <h1>Hello, {{ name }} 👋</h1>
+
+        <!-- Statistics -->
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>Pending</h3>
+                <h2>{{ pending }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <h2>{{ completed }}</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total</h3>
+                <h2>{{ total }}</h2>
+            </div>
+
+        </div>
+
+
+        <!-- Tasks -->
+
+        {% if tasks %}
+
+            {% for task in tasks %}
+
+            <div class="task-card">
+
+                <div class="task-info">
+
+                    <h2>{{ task[2] }}</h2>
+
+                    <p>{{ task[3] }}</p>
+
+                    <p>📅 Due: {{ task[4] }}</p>
+
+                    <p>
+                        Priority:
+                        <span class="priority {{ task[5]|lower }}">
+                            {{ task[5] }}
+                        </span>
+                    </p>
+
+                </div>
+
+
+                <div class="task-buttons">
+
+                    <a href="/edit_task/{{ task[0] }}"
+                       class="edit-btn">
+                        ✏ Edit
+                    </a>
+
+                    <a href="/complete_task/{{ task[0] }}"
+                       class="complete-btn">
+                        ✅ Complete
+                    </a>
+
+                    <a href="/delete_task/{{ task[0] }}"
+                       class="delete-btn">
+                        🗑 Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="task-card">
+
+                <h3>No tasks yet.</h3>
+
+                <p>
+                    Click <strong>Add Task</strong> to create your first task.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</div>
+
+</body>
+</html>

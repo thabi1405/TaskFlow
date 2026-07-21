@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Task</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="register-container">
+
+<h1>Edit Task</h1>
+
+<form method="POST">
+
+<input
+type="text"
+name="title"
+value="{{ task[2] }}"
+required>
+
+<textarea
+name="description">{{ task[3] }}</textarea>
+
+<input
+type="date"
+name="due_date"
+value="{{ task[4] }}">
+
+<select name="priority">
+
+<option {% if task[5]=='High' %}selected{% endif %}>High</option>
+
+<option {% if task[5]=='Medium' %}selected{% endif %}>Medium</option>
+
+<option {% if task[5]=='Low' %}selected{% endif %}>Low</option>
+
+</select>
+
+<button type="submit">
+
+Save Changes
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+
+</html>
